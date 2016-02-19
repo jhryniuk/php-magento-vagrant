@@ -1,0 +1,24 @@
+---
+- name: Update apt
+  apt: update_cache=yes
+
+- name: Uninstall Apache2
+  apt: name=apache2 purge=yes force=yes state=absent
+
+- name: Install full nginx
+  apt: name={{ item }} state=latest
+  with_items:
+    - nginx-full
+
+- name: Set nginx configuration file
+  template:
+    src: magento.conf.j2
+    dest: /etc/nginx/sites-available/magento.conf
+
+- name: Set symlink for configuration file
+  file:
+    src=/etc/nginx/sites-available/magento.conf
+    dest=/etc/nginx/sites-enabled/magento.conf
+    state=link
+  notify:
+    - nginx restart
