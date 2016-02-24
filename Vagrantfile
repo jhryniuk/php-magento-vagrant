@@ -1,18 +1,19 @@
 Vagrant.configure("2") do |conf|
+  require 'yaml'
+  app_config = YAML.load_file('vars.yml')
 
   conf.vm.box = "ubuntu/trusty64"
 
   conf.vm.network :private_network, ip: "10.0.0.200"
-  conf.vm.network "public_network"
   conf.ssh.forward_agent = true
 
-  conf.vm.synced_folder '..', '/var/www/magento',
+  conf.vm.synced_folder '..', '/var/www/' + app_config["project_name"],
   id: 'vagrant-root', owner: 'vagrant', group: 'vagrant'
 
   conf.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--memory", 1024]
-    v.customize ["modifyvm", :id, "--name", "magento"]
+    v.customize ["modifyvm", :id, "--name", "magento_" + app_config["project_name"]]
     v.customize ["modifyvm", :id, "--cpuexecutioncap", 80]
     v.cpus = 4
   end

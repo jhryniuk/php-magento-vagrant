@@ -1,0 +1,29 @@
+---
+- name: Install python-pycurl
+  apt: pkg=python-pycurl state=latest
+
+- name: Add php repository PHP 7
+  apt_repository: repo='ppa:ondrej/php' state=present
+
+- name: Update apt
+  apt: update_cache=yes
+
+- name: Install PHP
+  apt: name=php7.0 state=latest force=yes
+
+- name: Intsall PHP packages
+  apt: name={{ item }} state=latest force=yes
+  with_items:
+    - php7.0-cli
+    - php7.0-gd
+    - php7.0-mysql
+    - php7.0-curl
+    - php7.0-intl
+    - php7.0-mcrypt
+    - php7.0-dev
+    - php7.0-fpm
+    - php7.0-curl
+    - php7.0-xsl
+    - php7.0-zip
+    - php7.0-mbstring
+    - php-soap

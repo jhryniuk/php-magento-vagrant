@@ -1,1 +1,18 @@
-domain: test
+project_name: magento2
+domain_name: magento2.dev
+
+#Mysql configuration
+mysql_username: magento2
+mysql_password: magento2
+mysql_db_name: magento2
+
+#Github
+# please insert your own github token
+github_token: 'bc226838e7c6dac5dd1c529c4d54c6ade98d001c'
+
+#Magento configuration
+admin_firstname: magento2
+admin_lastname: magento2
+admin_email: mag2@gmail.com
+admin_login: magento2
+admin_password: magento2

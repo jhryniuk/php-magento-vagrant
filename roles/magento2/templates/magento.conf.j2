@@ -1,8 +1,8 @@
 server {
     listen 80;
-    root /var/www/magento2; #Use you mangeto2 location
+    root /var/www/{{ project_name }}/magento2-develop; #Use you mangeto2 location
     index index.php index.html index.htm;
-    server_name {{ domain }};
+    server_name {{ domain_name }};
 
     #location / {
         #try_files $uri $uri/ /index.php?q=$uri&$args;
@@ -46,7 +46,7 @@ server {
     #pass the PHP scripts to f stcgi socket
     location ~ \.php$ {
         try_files $uri =404;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;

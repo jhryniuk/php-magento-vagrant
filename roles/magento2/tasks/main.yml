@@ -1,0 +1,45 @@
+---
+#- name: Set nginx configuration file
+#  template:
+#    src: magento.conf.j2
+#    dest: /etc/nginx/sites-available/magento.conf
+#
+#- name: Set symlink for configuration file
+#  file:
+#    src=/etc/nginx/sites-available/magento.conf
+#    dest=/etc/nginx/sites-enabled/magento.conf
+#    state=link
+#
+#- name: Create database
+#  mysql_db:
+#    name: "{{ mysql_db_name }}"
+#    state: present
+#    collation: utf8_general_ci
+#
+#- name: Create database user
+#  mysql_user: name='{{ mysql_username }}' password='{{ mysql_password }}' priv={{ mysql_db_name }}.*:ALL
+#
+#- name: Download magento2 from github
+#  get_url:
+#    url=https://github.com/magento/magento2/archive/develop.zip
+#    dest=/var/www/{{project_name}}/develop.zip
+#
+#- name: Unzip archive
+#  unarchive:
+#    src=/var/www/{{project_name}}/develop.zip
+#    dest=/var/www/{{project_name}}
+#
+#- name: Delete zip file
+#  file: path=/var/www/{{project_name}}/develop.zip state=absent
+
+- name: Configure github token
+  shell: composer config -g github-oauth.gitgub.com {{ github_token }}
+
+- name: Install packages by composer
+  shell: 'composer install -d /var/www/{{ project_name }}/magento2-develop/'
+
+- name: Finall installation
+  shell: '/var/www/{{ project_name }}/magento2-develop/bin/magento \
+          setup:install --base-url “http://{{ domain_name }}/” --db-name “{{ mysql_db_name }}” \
+          --db-user “{{ mysql_username }}” --db-password “{{ mysql_password }}” --admin-firstname “{{ admin_firstname }}” \
+          --admin-lastname “{{ admin_lastname }}” --admin-user “{{ admin_login }}” --admin-password “{{ admin_password }}'

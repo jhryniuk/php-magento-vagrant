@@ -10,15 +10,5 @@
   with_items:
     - nginx-full
 
-- name: Set nginx configuration file
-  template:
-    src: magento.conf.j2
-    dest: /etc/nginx/sites-available/magento.conf
-
-- name: Set symlink for configuration file
-  file:
-    src=/etc/nginx/sites-available/magento.conf
-    dest=/etc/nginx/sites-enabled/magento.conf
-    state=link
   notify:
     - nginx restart

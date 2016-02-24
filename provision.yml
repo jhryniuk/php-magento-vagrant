@@ -8,7 +8,8 @@
     - vars.yml
   roles:
     - tools
-    - php5
+    - php
     - nginx
     - composer
     - mysql
+    - magento2
