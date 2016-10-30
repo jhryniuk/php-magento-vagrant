@@ -6,7 +6,7 @@ Vagrant machine with Magento2 Nginx and PHP 7
 
 ### Getting started:
 Download project:
-* To download this project use command: `git clone [link from bitbucket] vagrant`.
+* To download this project use command: `git clone [link from github] vagrant`.
 * After downloading you should move `vagrant` folder to project witch require this machine.
 * Add `vagrant` into file `.gitignore` of project.
 
